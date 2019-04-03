@@ -7,18 +7,25 @@ class CreateUser
   step :create
 
   def fetch_input(input)
-    @email = input.fetch(:email)
-    @first_name = input.fetch(:first_name)
-    @last_name = input.fetch(:last_name)
-    @date_of_birth = input.fetch(:date_of_birth)
-    @password = input.fetch(:password)
-    @password_confirmation = input.fetch(:password_confirmation)
+    @email = input[:email]
+    @first_name = input[:first_name]
+    @last_name = input[:last_name]
+    @date_of_birth = input[:date_of_birth]
+    @password = input[:password]
+    @password_confirmation = input[:password_confirmation]
   end
 
   def create
-    user = User.create(email: @email, first_name: @first_name,
-                last_name: @last_name, date_of_birth: @date_of_birth,
-                password: @password, password_confirmation: @password_confirmation)
-    Success(user)
+    user = User.create(email: @email,
+                       first_name: @first_name,
+                       last_name: @last_name,
+                       date_of_birth: @date_of_birth,
+                       password: @password,
+                       password_confirmation: @password_confirmation)
+    if user.save
+      Success(user: user)
+    else
+      Failure(error: user.errors.full_messages.join(', '))
+    end
   end
 end
