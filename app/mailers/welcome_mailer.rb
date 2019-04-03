@@ -1,3 +1,3 @@
 class WelcomeMailer < ApplicationMailer
-  mail(to: 'random@example.com', subject: 'Welcome!')
+  ActionMailer::Base.mail(to: 'random@example.com', subject: 'Welcome!')
 end

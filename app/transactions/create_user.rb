@@ -3,17 +3,22 @@ require "dry/transaction"
 class CreateUser
   include Dry::Transaction
 
+  tee :fetch_input
   step :create
-  step :send_welcome_email
 
-  def create(email:, first_name:, last_name:,
-             date_of_birth:, password:, password_confirmation:)
-    User.create(email: email, first_name: first_name,
-                last_name: last_name, date_of_birth: date_of_birth,
-                password: password, password_confirmation: password_confirmation)
+  def fetch_input(input)
+    @email = input.fetch(:email)
+    @first_name = input.fetch(:first_name)
+    @last_name = input.fetch(:last_name)
+    @date_of_birth = input.fetch(:date_of_birth)
+    @password = input.fetch(:password)
+    @password_confirmation = input.fetch(:password_confirmation)
   end
 
-  def send_welcome_email
-    WelcomeMailer.welcome.deliver_now
+  def create
+    user = User.create(email: @email, first_name: @first_name,
+                last_name: @last_name, date_of_birth: @date_of_birth,
+                password: @password, password_confirmation: @password_confirmation)
+    Success(user)
   end
 end
