@@ -3,6 +3,8 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.5.3'
 
+gem 'factory_bot_rails'
+gem 'faker'
 # Dry transaction
 gem 'dry-transaction'
 # Devise
@@ -49,6 +51,7 @@ gem 'bootsnap', '>= 1.1.0', require: false
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'letter_opener_web', '~> 1.0'
 end
 
 group :development do
@@ -70,8 +73,6 @@ group :test do
   gem 'chromedriver-helper'
   # Rpsec
   gem 'rspec-rails', '~> 3.8'
-  gem 'factory_bot_rails'
-  gem 'faker'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

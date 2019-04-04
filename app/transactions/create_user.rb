@@ -5,7 +5,7 @@ class CreateUser
 
   tee :fetch_input
   step :create
-  tee :send_email
+  # tee :send_email
 
   def fetch_input(input)
     @email = input[:email]
@@ -18,11 +18,11 @@ class CreateUser
 
   def create
     user = User.new(email: @email,
-                       first_name: @first_name,
-                       last_name: @last_name,
-                       date_of_birth: @date_of_birth,
-                       password: @password,
-                       password_confirmation: @password_confirmation)
+                    first_name: @first_name,
+                    last_name: @last_name,
+                    date_of_birth: @date_of_birth,
+                    password: @password,
+                    password_confirmation: @password_confirmation)
     if user.save
       Success(user: user)
     else
@@ -30,7 +30,7 @@ class CreateUser
     end
   end
 
-  def send_email
-    WelcomeMailer.welcome.deliver_now
-  end
+  # def send_email
+  #   WelcomeMailer.welcome.deliver_now
+  # end
 end
