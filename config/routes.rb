@@ -4,4 +4,8 @@ Rails.application.routes.draw do
   root 'home#index'
 
   devise_for :users, controllers: { registrations: 'users/registrations' }
+
+  devise_scope :user do
+   get 'dashboard', to: 'users/registrations#dashboard'
+  end
 end
