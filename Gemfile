@@ -3,6 +3,10 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.5.3'
 
+gem 'activeadmin'
+gem 'cancancan'
+gem 'draper'
+gem 'pundit'
 gem 'factory_bot_rails'
 gem 'faker'
 # Dry transaction
