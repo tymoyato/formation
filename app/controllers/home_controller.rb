@@ -1,5 +1,7 @@
 class HomeController < ApplicationController
-  def index
-    @user = current_user
-  end
+  before_action :authenticate_user!, only: [:dashboard]
+
+  def index; end
+
+  def dashboard; end
 end
