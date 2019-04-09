@@ -16,14 +16,15 @@ ActiveAdmin.register AdminUser do
 
   form do |f|
     f.inputs do
-      f.input :email
-      f.input :password
-      f.input :password_confirmation
+      if !f.object.new_record?
+        f.input :password
+        f.input :password_confirmation
+      else
+        f.input :email
+        f.input :password
+        f.input :password_confirmation
+      end
     end
     f.actions
-  end
-
-   member_action :edit do
-    render 'some_partial'
   end
 end
