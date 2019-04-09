@@ -3,29 +3,13 @@ require "dry/transaction"
 class CreateUser
   include Dry::Transaction
 
-  tee :fetch_input
   step :create
 
-  def fetch_input(input)
-    @email = input[:email]
-    @first_name = input[:first_name]
-    @last_name = input[:last_name]
-    @date_of_birth = input[:date_of_birth]
-    @password = input[:password]
-    @password_confirmation = input[:password_confirmation]
-  end
-
-  def create
-    user = User.new(email: @email,
-                       first_name: @first_name,
-                       last_name: @last_name,
-                       date_of_birth: @date_of_birth,
-                       password: @password,
-                       password_confirmation: @password_confirmation)
-    if user.save
-      Success(user: user)
+  def create(input)
+    if input[:user].save
+      Success(input)
     else
-      Failure(error: user.errors.full_messages.join(', '))
+      Failure(error: input[:user].errors.full_messages.join(', '))
     end
   end
 end
