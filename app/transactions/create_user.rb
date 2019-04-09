@@ -5,11 +5,11 @@ class CreateUser
 
   step :create
 
-  def create(user)
-    if user.save
-      Success(user: user)
+  def create(input)
+    if input[:user].save
+      Success(input)
     else
-      Failure(error: user.errors.full_messages.join(', '))
+      Failure(error: input[:user].errors.full_messages.join(', '))
     end
   end
 end
