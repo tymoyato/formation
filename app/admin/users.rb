@@ -42,19 +42,16 @@ ActiveAdmin.register User do
 
   show do |user|
     attributes_table do
-      #We want to keep the existing columns
       User.column_names.each do |column|
         row column
       end
-      #This is where we add a new column
       row :login_as do
-        link_to "#{user.first_name}", login_as_admin_user_path(user), :target => '_blank'
+        link_to user.first_name.to_s, login_as_admin_user_path(user), target: '_blank'
       end
     end
   end
 
-  # Allows admins to login as a user
-  member_action :login_as, :method => :get do
+  member_action :login_as, method: :get do
     user = User.find(params[:id])
     bypass_sign_in user
     redirect_to user_session_path
