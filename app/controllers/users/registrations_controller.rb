@@ -10,10 +10,19 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   # POST /resource
-  # def create
-  #   super
-  # end
+  def create
+    user = User.new(user_params)
+    transaction = CreateUser.new
+    transaction.call(user: user)
 
+    redirect_to user_session_path
+  end
+
+  private
+
+  def user_params
+    params.require(:user).permit(:email, :first_name, :last_name, :date_of_birth, :password, :password_confirmation)
+  end
   # GET /resource/edit
   # def edit
   #   super
