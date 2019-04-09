@@ -6,6 +6,7 @@ class CreateUser
   step :create
 
   def create(user)
+    user = User.new(user)
     if user.save
       Success(user: user)
     else

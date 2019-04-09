@@ -13,7 +13,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def create
     user = User.new(user_params)
     transaction = CreateUser.new
-    transaction.call(user)
+    transaction.call(user: user)
 
     redirect_to user_session_path
   end
