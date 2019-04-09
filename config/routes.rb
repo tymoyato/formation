@@ -8,6 +8,6 @@ Rails.application.routes.draw do
   devise_for :users, controllers: { registrations: 'users/registrations' }
 
   devise_scope :user do
-   get 'dashboard', to: 'users/registrations#dashboard'
+    get 'dashboard', to: 'home#dashboard'
   end
 end
