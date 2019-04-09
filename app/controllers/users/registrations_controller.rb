@@ -3,7 +3,6 @@
 class Users::RegistrationsController < Devise::RegistrationsController
   # before_action :configure_sign_up_params, only: [:create]
   # before_action :configure_account_update_params, only: [:update]
-  before_action :signed_user, only: [:index, :dashboard, :edit]
 
   # GET /resource/sign_up
   # def new
@@ -12,9 +11,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # POST /resource
 
-  def dashboard
-    @user = current_user
-  end
+  def dashboard; end
 
   def create
     user = User.new(user_params)
@@ -28,12 +25,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def user_params
     params.require(:user).permit(:email, :first_name, :last_name, :date_of_birth, :password, :password_confirmation)
-  end
-
-  def signed_user
-    unless user_signed_in?
-      redirect_to root_path
-    end
   end
 
   # GET /resource/edit
