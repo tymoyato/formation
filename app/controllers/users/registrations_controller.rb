@@ -10,6 +10,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   # POST /resource
+
+  def dashboard; end
+
   def create
     user = User.new(user_params)
     transaction = CreateUser.new
@@ -23,6 +26,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def user_params
     params.require(:user).permit(:email, :first_name, :last_name, :date_of_birth, :password, :password_confirmation)
   end
+
   # GET /resource/edit
   # def edit
   #   super
