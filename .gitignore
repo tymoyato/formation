@@ -38,3 +38,5 @@
 
 # Ignore Figaro application.yml
 /config/application.yml
+
+/public/uploads
