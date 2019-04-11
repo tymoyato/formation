@@ -5,4 +5,15 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password') if Rails.env.development?
+unless Rails.env.production?
+
+  AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password')
+
+  5.times do |i|
+    FactoryBot.create(:random_user, email: "activated#{i}@test.com")
+  end
+
+  5.times do |i|
+    FactoryBot.create(:random_user, email: "desactivated#{i}@test.com")
+  end
+end
