@@ -10,15 +10,15 @@ unless Rails.env.production?
 AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password')
 
 5.times do |i|
-    User.create!(
-      first_name: Faker::Name.first_name,
-      last_name: Faker::Name.last_name,
-      email: "activated#{i}@test.com",
-      password: 'foobar',
-      password_confirmation: 'foobar',
-      date_of_birth: Date.today,
-      confirmed_at: Time.now
-    )
+  User.create!(
+    first_name: Faker::Name.first_name,
+    last_name: Faker::Name.last_name,
+    email: "activated#{i}@test.com",
+    password: 'foobar',
+    password_confirmation: 'foobar',
+    date_of_birth: Date.today,
+    confirmed_at: Time.now
+  )
 end
 
 5.times do |i|
