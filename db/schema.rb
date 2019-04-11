@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_11_080048) do
+ActiveRecord::Schema.define(version: 2019_04_11_141204) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -48,6 +48,24 @@ ActiveRecord::Schema.define(version: 2019_04_11_080048) do
 
   create_table "categories", force: :cascade do |t|
     t.string "name"
+  end
+
+  create_table "contreparties", force: :cascade do |t|
+    t.bigint "contribution_id"
+    t.string "name"
+    t.integer "amount"
+    t.boolean "stock_state", default: true
+    t.index ["contribution_id"], name: "index_contreparties_on_contribution_id"
+  end
+
+  create_table "contributions", force: :cascade do |t|
+    t.bigint "users_id"
+    t.bigint "projects_id"
+    t.integer "amount"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["projects_id"], name: "index_contributions_on_projects_id"
+    t.index ["users_id"], name: "index_contributions_on_users_id"
   end
 
   create_table "projects", force: :cascade do |t|
