@@ -1,4 +1,4 @@
 class Contribution < ApplicationRecord
-  belongs_to :users
-  belongs_to :projects
+  belongs_to :user
+  belongs_to :project
 end
