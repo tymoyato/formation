@@ -10,4 +10,7 @@ Rails.application.routes.draw do
   devise_scope :user do
     get 'dashboard', to: 'home#dashboard'
   end
+
+  resources :projects
+    mount Shrine.upload_endpoint(:cache) => "/upload"
 end
