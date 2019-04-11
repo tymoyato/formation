@@ -16,14 +16,11 @@ ActiveAdmin.register AdminUser do
 
   form do |f|
     f.inputs do
-      if !f.object.new_record?
-        f.input :password
-        f.input :password_confirmation
-      else
+      if f.object.new_record?
         f.input :email
-        f.input :password
-        f.input :password_confirmation
       end
+      f.input :password
+      f.input :password_confirmation
     end
     f.actions
   end
