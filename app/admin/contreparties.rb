@@ -1,0 +1,2 @@
+ActiveAdmin.register Contrepartie do
+end

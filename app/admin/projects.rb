@@ -53,5 +53,49 @@ ActiveAdmin.register Project do
       row :category
       row :created_at
     end
+    attributes_table do
+      row 'Names' do |u|
+        u.contributions.map do |project|
+          User.find(project.user_id).first_name
+        end
+        .join(" ,").html_safe
+      end
+      row 'Contributions' do |u|
+        u.contributions.map do |project|
+          project.amount
+        end
+        .join(" ,").html_safe
+      end
+      row 'Contreparties' do |u|
+        u.contributions.map do |project|
+          Contrepartie.find_by(contribution: project.id).name
+        end
+        .join(" ,").html_safe
+      end
+      row 'Date of creation' do |u|
+        u.contributions.map do |project|
+          project.created_at
+        end
+        .join(" ,").html_safe
+      end
+      # row 'Amounts' do |u|
+      #   u.contributions.map do |pj|
+      #     pj.amount
+      #   end
+      #   .join("<br />").html_safe
+      # end
+      # row 'Contreparties' do |u|
+      #   u.contributions.map do |pj|
+      #     pj.amount
+      #   end
+      #   .join("<br />").html_safe
+      # end
+      # row 'Dates' do |u|
+      #   u.contributions.map do |pj|
+      #     pj.amount
+      #   end
+      #   .join("<br />").html_safe
+      # end
+    end
   end
 end

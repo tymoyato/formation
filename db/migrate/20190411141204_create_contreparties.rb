@@ -1,4 +1,4 @@
-class CreateContrepartie < ActiveRecord::Migration[5.2]
+class CreateContreparties < ActiveRecord::Migration[5.2]
   def change
     create_table :contreparties do |t|
       t.belongs_to :contribution
