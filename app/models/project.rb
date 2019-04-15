@@ -6,4 +6,8 @@ class Project < ApplicationRecord
   validates :name, :amount, presence: true
   include ImageUploader::Attachment.new(:landscape)
   include ImageUploader::Attachment.new(:thumb)
+
+  def totalize_contributions
+    sum = 8
+  end
 end
