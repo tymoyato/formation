@@ -24,17 +24,19 @@ ActiveAdmin.register User do
 
   form do |f|
     f.inputs do
+      if f.object.new_record?
+        f.input :email
+      end
+      f.input :email
+      f.input :first_name
+      f.input :last_name
+      f.input :date_of_birth
+      f.input :password
+      f.input :password_confirmation
       if !f.object.new_record?
         f.input :email
         f.input :first_name
         f.input :last_name
-      else
-        f.input :email
-        f.input :first_name
-        f.input :last_name
-        f.input :date_of_birth
-        f.input :password
-        f.input :password_confirmation
       end
     end
     f.actions
