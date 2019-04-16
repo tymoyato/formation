@@ -2,8 +2,6 @@ ActiveAdmin.register Project do
   permit_params :name, :short_desc, :long_desc,
                 :amount, :landscape, :thumb, :category_id
 
-  decorate_with UserDecorator
-
   index do
     selectable_column
     id_column
