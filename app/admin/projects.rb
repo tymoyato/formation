@@ -2,6 +2,8 @@ ActiveAdmin.register Project do
   permit_params :name, :short_desc, :long_desc,
                 :amount, :landscape, :thumb, :category_id
 
+  decorate_with UserDecorator
+
   index do
     selectable_column
     id_column
@@ -54,41 +56,53 @@ ActiveAdmin.register Project do
       row :created_at
     end
 
-    attributes_table do
-      row 'Names' do |u|
-        u.contributions.map do |project|
-          User.find(project.user_id).first_name
+    panel "Contribution details" do
+      table_for project do
+        column "Names" do
+          project.contributions.map do |project|
+            name = User.find(project.user_id).full_name
+            link_to "#{name}", admin_user_path(project.user_id)
+          end.join("<br > ").html_safe
         end
-        .join(" ,").html_safe
-      end
-      row 'Contributions' do |u|
-        u.contributions.map do |project|
-          project.amount
+
+        column "Contributions" do
+          project.contributions.map do |project|
+            project.amount
+          end.join("<br > ").html_safe
         end
-        .join(" ,").html_safe
-      end
-      # row 'Contreparties' do |u|
-      #   u.contributions.map do |project|
-      #     Contrepartie.find_by(contribution: project.id).name
-      #   end
-      #   .join(" ,").html_safe
-      # end
-      row 'Date of creation' do |u|
-        u.contributions.map do |project|
-          project.created_at
+
+        column "Contreparties" do
+          project.contributions.map do |project|
+            if Contrepartie.find_by(contribution: project.id).nil?
+              "pas de contrepartie"
+            else
+              Contrepartie.find_by(contribution: project.id).name
+            end
+          end.join("<br > ").html_safe
         end
-        .join(" ,").html_safe
+
+        column "Date of creation" do
+          project.contributions.map do |project|
+            project.created_at
+          end.join("<br > ").html_safe
+        end
       end
-      # attributes_table do
-      #   row 'sum' do |u|
-      #   total = u.contributions.map do |project|
-      #     project.amount
-      #   end
-      #   total.sum
-      #   end
-      # end
-      row 'Date of creation' do |u|
-        project.totalize_contributions
+    end
+
+    panel "Contribution stats" do
+      attributes_table_for project do
+        row 'Contribution total' do
+          project.totalize_contributions
+        end
+        row 'Lower Contribution' do
+          project.lower_contribution
+        end
+        row 'Higher Contribution' do
+          project.higher_contribution
+        end
+        row 'Percentage of completion' do
+          project.percentage_of_completion
+        end
       end
     end
   end

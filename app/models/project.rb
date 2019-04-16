@@ -8,6 +8,23 @@ class Project < ApplicationRecord
   include ImageUploader::Attachment.new(:thumb)
 
   def totalize_contributions
-    sum = 8
+    contributions = Contribution.where(project: id)
+     @list = contributions.map do |project|
+       project.amount
+     end
+    @list.sum
+  end
+
+  def lower_contribution
+    @list.sort.first
+  end
+
+  def higher_contribution
+    @list.sort.last
+  end
+
+  def percentage_of_completion
+    percent = (totalize_contributions.to_f / amount.to_f) * 100.0
+    percent.round.to_s + " %"
   end
 end

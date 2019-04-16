@@ -9,4 +9,8 @@ class User < ApplicationRecord
 
   validates :first_name, :last_name, :date_of_birth, presence: true
   validates :email, format: /\w+@\w+\.{1}[a-zA-Z]{2,}/, uniqueness: true
+
+  def full_name
+    first_name + ' ' + last_name
+  end
 end
