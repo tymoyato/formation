@@ -57,34 +57,22 @@ ActiveAdmin.register Project do
     end
 
     panel "Contribution details" do
-      table_for project do
-        column "Names" do
-          project.contributions.map do |project|
-            name = User.find(project.user_id).full_name
-            link_to "#{name}", admin_user_path(project.user_id)
-          end.join("<br > ").html_safe
+      table_for project.contributions do
+        column "Names" do |contribution|
+          name = User.find(contribution.user_id).full_name
+          link_to "#{name}", admin_user_path(contribution.user_id)
         end
 
-        column "Contributions" do
-          project.contributions.map do |project|
-            project.amount
-          end.join("<br > ").html_safe
+        column "Contribution" do |contribution|
+          contribution.amount
         end
 
-        column "Contreparties" do
-          project.contributions.map do |project|
-            if Contrepartie.find_by(contribution: project.id).nil?
-              "pas de contrepartie"
-            else
-              Contrepartie.find_by(contribution: project.id).name
-            end
-          end.join("<br > ").html_safe
+        column "Contrepartie" do |contribution|
+          Contrepartie.find_by(contribution: contribution.id)
         end
 
-        column "Date of creation" do
-          project.contributions.map do |project|
-            project.created_at
-          end.join("<br > ").html_safe
+        column "Date of creation" do |contribution|
+          contribution.created_at
         end
       end
     end

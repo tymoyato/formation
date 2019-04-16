@@ -1,3 +1,3 @@
 class Contrepartie < ApplicationRecord
-  belongs_to :contribution
+  has_many :contribution
 end
