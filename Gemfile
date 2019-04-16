@@ -3,6 +3,10 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.5.3'
 
+# image
+gem 'image_processing', '~> 1.0'
+gem 'shrine', '~> 2.0'
+
 gem 'activeadmin'
 gem 'cancancan'
 gem 'draper'
@@ -13,9 +17,9 @@ gem 'dry-transaction'
 # Devise
 gem 'devise'
 # Figaro
-gem "figaro"
+gem 'figaro'
 # Rubycritic
-gem "rubycritic", require: false
+gem 'rubycritic', require: false
 # PostgreSQL
 gem 'pg', '~> 1.1', '>= 1.1.4'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
