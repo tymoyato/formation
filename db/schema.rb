@@ -56,8 +56,8 @@ ActiveRecord::Schema.define(version: 2019_04_11_080048) do
     t.text "short_desc"
     t.text "long_desc"
     t.integer "amount"
-    t.string "landscape_data"
-    t.string "thumb_data"
+    t.text "landscape_data"
+    t.text "thumb_data"
     t.datetime "created_at", null: false
     t.index ["category_id"], name: "index_projects_on_category_id"
   end
