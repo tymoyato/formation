@@ -6,7 +6,6 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 unless Rails.env.production?
-
   AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password')
 
   10.times do |i|
@@ -63,5 +62,13 @@ unless Rails.env.production?
 
   for id in 1..100
     FactoryBot.create(:contrepartie, contribution_id: id)
+  end
+
+  5.times do |i|
+    FactoryBot.create(:category)
+  end
+
+  5.times do |i|
+    FactoryBot.create(:project)
   end
 end

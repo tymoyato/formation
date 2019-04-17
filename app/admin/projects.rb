@@ -53,7 +53,7 @@ ActiveAdmin.register Project do
       row :category
       row :created_at
     end
-
+    
     panel "Contribution details" do
       table_for project.contributions do
         column "Names" do |contribution|

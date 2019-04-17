@@ -3,7 +3,6 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.5.3'
 
-gem 'draper'
 # image
 gem 'image_processing', '~> 1.0'
 gem 'shrine', '~> 2.0'
