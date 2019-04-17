@@ -32,7 +32,7 @@ ActiveAdmin.register User do
       f.input :password_confirmation
     end
     f.actions
-  end
+end
 
   show do |user|
     attributes_table do

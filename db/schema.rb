@@ -50,6 +50,24 @@ ActiveRecord::Schema.define(version: 2019_04_11_080048) do
     t.string "name"
   end
 
+  create_table "contreparties", force: :cascade do |t|
+    t.bigint "contribution_id"
+    t.string "name"
+    t.integer "amount"
+    t.boolean "stock_state", default: true
+    t.index ["contribution_id"], name: "index_contreparties_on_contribution_id"
+  end
+
+  create_table "contributions", force: :cascade do |t|
+    t.bigint "users_id"
+    t.bigint "projects_id"
+    t.integer "amount"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["projects_id"], name: "index_contributions_on_projects_id"
+    t.index ["users_id"], name: "index_contributions_on_users_id"
+  end
+
   create_table "projects", force: :cascade do |t|
     t.bigint "category_id"
     t.string "name"
@@ -85,5 +103,4 @@ ActiveRecord::Schema.define(version: 2019_04_11_080048) do
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
-
 end

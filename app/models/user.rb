@@ -4,6 +4,9 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :trackable, :confirmable
 
+  has_many :contributions, dependent: :destroy
+  has_many :projects, through: :contributions
+
   validates :first_name, :last_name, :date_of_birth, presence: true
   validates :email, format: /\w+@\w+\.{1}[a-zA-Z]{2,}/, uniqueness: true
 end
