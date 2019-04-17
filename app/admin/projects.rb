@@ -16,14 +16,14 @@ ActiveAdmin.register Project do
     actions
   end
 
-    filter :name
-    filter :short_desc
-    filter :long_desc
-    filter :amount
-    filter :landscape
-    filter :thumb
-    filter :category
-    filter :created_at
+  filter :name
+  filter :short_desc
+  filter :long_desc
+  filter :amount
+  filter :landscape
+  filter :thumb
+  filter :category
+  filter :created_at
 
   form do |f|
     f.inputs do
@@ -36,6 +36,10 @@ ActiveAdmin.register Project do
       f.input :category
     end
     f.actions
+  end
+
+  action_item :contrepartie do
+    link_to "New contrepartie", new_admin_contreparty_path(id: params[:id])
   end
 
   show do
@@ -81,6 +85,14 @@ ActiveAdmin.register Project do
 
         column "Contrepartie" do |contribution|
           contribution.contrepartie
+        end
+
+        column "Edit contrepartie" do |contribution|
+          link_to "edit", edit_admin_contreparty_path(contribution.contrepartie.id)
+        end
+
+        column "Delete Contrepartie" do |contribution|
+          link_to "delete", admin_contreparty_path(contribution.contrepartie.id), method: :delete, confirm: 'Are you sure to delete this ?'
         end
 
         column "Date of creation" do |contribution|
