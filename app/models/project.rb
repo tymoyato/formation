@@ -1,6 +1,7 @@
 class Project < ApplicationRecord
   belongs_to :category
   has_many :contributions
+  has_many :contrepartie
   has_many :users, through: :contributions
 
   validates :name, :amount, presence: true

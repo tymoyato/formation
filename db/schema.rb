@@ -51,16 +51,17 @@ ActiveRecord::Schema.define(version: 2019_04_11_141204) do
   end
 
   create_table "contreparties", force: :cascade do |t|
-    t.bigint "contribution_id"
+    t.bigint "project_id"
     t.string "name"
     t.integer "amount"
     t.boolean "stock_state", default: true
-    t.index ["contribution_id"], name: "index_contreparties_on_contribution_id"
+    t.index ["project_id"], name: "index_contreparties_on_project_id"
   end
 
   create_table "contributions", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "project_id"
+    t.integer "contrepartie_id"
     t.integer "amount"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

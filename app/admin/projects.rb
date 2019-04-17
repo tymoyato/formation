@@ -54,6 +54,20 @@ ActiveAdmin.register Project do
       row :created_at
     end
 
+    panel "All contreparties" do
+      table_for project.contrepartie do
+        column "Name" do |contrepartie|
+          contrepartie.name
+        end
+        column "Amount" do |contrepartie|
+          contrepartie.amount
+        end
+        column "Stock state" do |contrepartie|
+          contrepartie.stock_state
+        end
+      end
+    end
+
     panel "Contribution details" do
       table_for project.contributions do
         column "Names" do |contribution|
@@ -66,7 +80,7 @@ ActiveAdmin.register Project do
         end
 
         column "Contrepartie" do |contribution|
-          Contrepartie.find_by(contribution: contribution.id)
+          contribution.contrepartie
         end
 
         column "Date of creation" do |contribution|
