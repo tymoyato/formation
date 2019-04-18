@@ -66,7 +66,6 @@ ActiveRecord::Schema.define(version: 2019_04_11_080048) do
     t.datetime "updated_at", null: false
     t.index ["project_id"], name: "index_contributions_on_project_id"
     t.index ["user_id"], name: "index_contributions_on_user_id"
-  end
 
   create_table "projects", force: :cascade do |t|
     t.bigint "category_id"
@@ -103,5 +102,4 @@ ActiveRecord::Schema.define(version: 2019_04_11_080048) do
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
-
 end
