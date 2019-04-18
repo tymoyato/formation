@@ -1,3 +1,3 @@
 class Contrepartie < ApplicationRecord
-  belongs_to :contributions
+has_many :contributions, dependent: :destroy
 end

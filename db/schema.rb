@@ -59,14 +59,13 @@ ActiveRecord::Schema.define(version: 2019_04_11_080048) do
   end
 
   create_table "contributions", force: :cascade do |t|
-    t.bigint "users_id"
-    t.bigint "projects_id"
+    t.bigint "user_id"
+    t.bigint "project_id"
     t.integer "amount"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["projects_id"], name: "index_contributions_on_projects_id"
-    t.index ["users_id"], name: "index_contributions_on_users_id"
-  end
+    t.index ["project_id"], name: "index_contributions_on_project_id"
+    t.index ["user_id"], name: "index_contributions_on_user_id"
 
   create_table "projects", force: :cascade do |t|
     t.bigint "category_id"

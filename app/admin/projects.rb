@@ -53,5 +53,43 @@ ActiveAdmin.register Project do
       row :category
       row :created_at
     end
+    
+    panel "Contribution details" do
+      table_for project.contributions do
+        column "Names" do |contribution|
+          name = User.find(contribution.user_id).full_name
+          link_to "#{name}", admin_user_path(contribution.user_id)
+        end
+
+        column "Contribution" do |contribution|
+          contribution.amount
+        end
+
+        column "Contrepartie" do |contribution|
+          Contrepartie.find_by(contribution: contribution.id)
+        end
+
+        column "Date of creation" do |contribution|
+          contribution.created_at
+        end
+      end
+    end
+
+    panel "Contribution stats" do
+      attributes_table_for project do
+        row 'Contribution total' do
+          project.totalize_contributions
+        end
+        row 'Lower Contribution' do
+          project.lower_contribution
+        end
+        row 'Higher Contribution' do
+          project.higher_contribution
+        end
+        row 'Percentage of completion' do
+          project.percentage_of_completion
+        end
+      end
+    end
   end
 end

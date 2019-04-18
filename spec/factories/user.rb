@@ -6,5 +6,6 @@ FactoryBot.define do
     date_of_birth         { Date.today }
     password              { 'foobar' }
     password_confirmation { 'foobar' }
+    confirmed_at          { Time.now }
   end
 end
