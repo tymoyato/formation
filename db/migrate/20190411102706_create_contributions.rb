@@ -3,6 +3,7 @@ class CreateContributions < ActiveRecord::Migration[5.2]
     create_table :contributions do |t|
       t.belongs_to :user, index: true
       t.belongs_to :project, index: true
+      t.integer :contrepartie_id
       t.integer :amount
       t.timestamps
     end

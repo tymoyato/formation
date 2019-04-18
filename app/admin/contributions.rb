@@ -1,5 +1,5 @@
 ActiveAdmin.register Contribution do
-  permit_params :amount, :stock_state, :user_id, :project_id
+  permit_params :amount, :user_id, :project_id
 
   form do |f|
     f.inputs do

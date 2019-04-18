@@ -21,47 +21,19 @@ unless Rails.env.production?
   end
 
   for id in 1..10
-    FactoryBot.create(:contribution, user_id: id, project_id: 1)
+    FactoryBot.create(:contrepartie, project_id: 1, stock_state: true)
   end
 
   for id in 1..10
-    FactoryBot.create(:contribution, user_id: id, project_id: 2)
+    FactoryBot.create(:contrepartie, project_id: 2, stock_state: true)
   end
 
   for id in 1..10
-    FactoryBot.create(:contribution, user_id: id, project_id: 3)
+    FactoryBot.create(:contribution, user_id: id, project_id: 1, contrepartie_id: id)
   end
 
   for id in 1..10
-    FactoryBot.create(:contribution, user_id: id, project_id: 4)
-  end
-
-  for id in 1..10
-    FactoryBot.create(:contribution, user_id: id, project_id: 5)
-  end
-
-  for id in 1..10
-    FactoryBot.create(:contribution, user_id: id, project_id: 6)
-  end
-
-  for id in 1..10
-    FactoryBot.create(:contribution, user_id: id, project_id: 7)
-  end
-
-  for id in 1..10
-    FactoryBot.create(:contribution, user_id: id, project_id: 8)
-  end
-
-  for id in 1..10
-    FactoryBot.create(:contribution, user_id: id, project_id: 9)
-  end
-
-  for id in 1..10
-    FactoryBot.create(:contribution, user_id: id, project_id: 10)
-  end
-
-  for id in 1..100
-    FactoryBot.create(:contrepartie, contribution_id: id)
+    FactoryBot.create(:contribution, user_id: id, project_id: 2, contrepartie_id: id)
   end
 
   5.times do |i|
