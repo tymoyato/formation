@@ -39,7 +39,7 @@ ActiveAdmin.register Project do
   end
 
   action_item :contrepartie do
-    link_to "New contrepartie", new_admin_contreparty_path(id: params[:id])
+    link_to "New contrepartie", new_admin_contreparty_path(project_id: params[:id])
   end
 
   show do
@@ -56,6 +56,8 @@ ActiveAdmin.register Project do
       row :amount
       row :category
       row :created_at
+      row :id
+      row :project_id
     end
 
     panel "All contreparties" do
