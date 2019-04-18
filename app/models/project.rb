@@ -35,19 +35,15 @@ class Project < ApplicationRecord
   end
 
   def totalize_contributions
-    contributions = Contribution.where(project: id)
-     @list = contributions.map do |project|
-       project.amount
-     end
-    @list.sum
+    contributions.sum(:amount)
   end
 
   def lower_contribution
-    @list.sort.first
+    contributions.min_by(&:amount).amount
   end
 
   def higher_contribution
-    @list.sort.last
+    contributions.max_by(&:amount).amount
   end
 
   def percentage_of_completion
