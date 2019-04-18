@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_11_141204) do
+ActiveRecord::Schema.define(version: 2019_04_18_090632) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -78,6 +78,7 @@ ActiveRecord::Schema.define(version: 2019_04_11_141204) do
     t.string "landscape_data"
     t.string "thumb_data"
     t.datetime "created_at", null: false
+    t.string "aasm_state"
     t.index ["category_id"], name: "index_projects_on_category_id"
   end
 

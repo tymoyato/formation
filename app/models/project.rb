@@ -8,6 +8,32 @@ class Project < ApplicationRecord
   include ImageUploader::Attachment.new(:landscape)
   include ImageUploader::Attachment.new(:thumb)
 
+  include AASM
+
+  aasm :whiny_transitions => false do
+    state :draft, initial: true
+    state :upcoming
+    state :ongoing
+    state :success
+    state :failure
+
+    event :coming do
+      transitions from: [:draft], to: :upcoming
+    end
+
+    event :going do
+      transitions from: [:upcoming], to: :ongoing
+    end
+
+    event :succeed do
+      transitions from: [:ongoing], to: :success
+    end
+
+    event :failed do
+      transitions from: [:ongoing], to: :failure
+    end
+  end
+
   def totalize_contributions
     contributions = Contribution.where(project: id)
      @list = contributions.map do |project|
