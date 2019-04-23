@@ -77,6 +77,7 @@ ActiveRecord::Schema.define(version: 2019_04_18_090632) do
     t.integer "amount"
     t.string "landscape_data"
     t.string "thumb_data"
+    t.integer "percentage"
     t.datetime "created_at", null: false
     t.string "aasm_state"
     t.index ["category_id"], name: "index_projects_on_category_id"

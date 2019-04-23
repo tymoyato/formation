@@ -1,12 +1,12 @@
 require "dry/transaction"
 
-class CreateProject
+class StartOngoing
   include Dry::Transaction
 
-  step :create
+  step :ongoing_transition
 
-  def create(input)
-    if input[:project].save
+  def ongoing_transition(input)
+    if input[:project].going!
       Success(input)
     else
       Failure(error: input[:project].errors.full_messages.join(', '), resource: input[:project])

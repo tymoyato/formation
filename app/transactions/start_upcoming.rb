@@ -1,12 +1,12 @@
 require "dry/transaction"
 
-class CreateProject
+class StartUpcoming
   include Dry::Transaction
 
-  step :create
+  step :upcoming_transition
 
-  def create(input)
-    if input[:project].save
+  def upcoming_transition(input)
+    if input[:project].coming!
       Success(input)
     else
       Failure(error: input[:project].errors.full_messages.join(', '), resource: input[:project])
