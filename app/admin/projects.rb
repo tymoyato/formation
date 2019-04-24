@@ -115,7 +115,7 @@ ActiveAdmin.register Project do
         end
       end
     end
-
+    
     panel "Contribution details" do
       table_for project.contributions do
         column "Names" do |contribution|
