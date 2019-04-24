@@ -8,26 +8,6 @@ class Project < ApplicationRecord
   include ImageUploader::Attachment.new(:landscape)
   include ImageUploader::Attachment.new(:thumb)
 
-  scope :by_on_draft, -> do
-    Project.where(aasm_state: "draft")
-  end
-
-  scope :by_up_coming, -> do
-    Project.where(aasm_state: "upcoming")
-  end
-
-  scope :by_on_going, -> do
-    Project.where(aasm_state: "ongoing")
-  end
-
-  scope :by_on_success, -> do
-    Project.where(aasm_state: "success")
-  end
-
-  scope :by_on_failure, -> do
-    Project.where(aasm_state: "failure")
-  end
-
   include AASM
 
   aasm :whiny_transitions => false do
@@ -38,35 +18,35 @@ class Project < ApplicationRecord
     state :failure
 
     event :coming do
-      transitions from: [:draft], to: :upcoming, guard: :upcoming_params
+      transitions from: [:draft], to: :upcoming, guard: :upcoming_valid?
     end
 
     event :going do
-      transitions from: [:upcoming], to: :ongoing, guard: :ongoing_params
+      transitions from: [:upcoming], to: :ongoing, guard: :ongoing_valid?
     end
 
     event :succeed do
-      transitions from: [:ongoing], to: :success, guard: :success_params
+      transitions from: [:ongoing], to: :success, guard: :success_valid?
     end
 
     event :failed do
-      transitions from: [:ongoing], to: :failure, guard: :failed_params
+      transitions from: [:ongoing], to: :failure, guard: :failed_valid?
     end
   end
 
-  def upcoming_params
+  def upcoming_valid?
     UpcomingValidator.new(self).valid?
   end
 
-  def ongoing_params
+  def ongoing_valid?
     contrepartie.blank? ? false : true
   end
 
-  def success_params
+  def success_valid?
     PercentageSuccessValidator.new(self).valid?
   end
 
-  def failed_params
+  def failed_valid?
     PercentageFailedValidator.new(self).valid?
   end
 

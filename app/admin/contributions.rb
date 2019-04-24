@@ -14,21 +14,15 @@ ActiveAdmin.register Contribution do
 
   controller do
     def create
-      contribution = Contribution.new(contribution_params)
+      contribution = build_resource
       transaction = CreateContribution.new.call(contribution: contribution)
       if transaction.success?
         contribution.project.update_attributes(percentage: contribution.project.percentage_of_completion)
         redirect_to admin_contribution_path(contribution.id)
       else
-        @contribution = transaction.failure[:resource]
+        resource.contribution = transaction.failure[:resource]
         render :new
       end
-    end
-
-    private
-
-    def contribution_params
-      params.require(:contribution).permit(:amount, :user_id, :project_id, :contrepartie_id)
     end
   end
 end

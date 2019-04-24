@@ -3,11 +3,11 @@ ActiveAdmin.register Project do
                 :amount, :landscape, :thumb, :category_id
 
   scope :all, default: true
-  scope 'Project en draft', :by_on_draft
-  scope 'Project en coming', :by_up_coming
-  scope 'Project en going', :by_on_going
-  scope 'Project en succeed', :by_on_success
-  scope 'Project en failed', :by_on_failure
+  scope 'Project en draft', :draft
+  scope 'Project en coming', :upcoming
+  scope 'Project en going', :ongoing
+  scope 'Project en succeed', :success
+  scope 'Project en failed', :failure
 
   index do
     selectable_column
@@ -51,34 +51,31 @@ ActiveAdmin.register Project do
 
   batch_action :going do |ids|
     batch_action_collection.find(ids).each do |project|
-      @state = StartOngoing.new.call(project: project)
-    end
-    if @state.success?
-      redirect_to collection_path, alert: "The project have been set to going."
-    else
-      redirect_to collection_path, alert: "The project is not able to going."
+      if StartOngoing.new.call(project: project).success?
+        redirect_to collection_path, alert: "The project have been set to going."
+      else
+        redirect_to collection_path, alert: "The project is not able to going."
+      end
     end
   end
 
   batch_action :succeed do |ids|
     batch_action_collection.find(ids).each do |project|
-      @state = StartSuccess.new.call(project: project)
-    end
-    if @state.success?
-      redirect_to collection_path, alert: "The project have been set to success."
-    else
-      redirect_to collection_path, alert: "The project is not able to be succeed."
+      if StartSuccess.new.call(project: project).success?
+        redirect_to collection_path, alert: "The project have been set to success."
+      else
+        redirect_to collection_path, alert: "The project is not able to be succeed."
+      end
     end
   end
 
   batch_action :failed do |ids|
     batch_action_collection.find(ids).each do |project|
-      @state = StartFailure.new.call(project: project)
-    end
-    if @state.success?
-      redirect_to collection_path, alert: "The project have been set to failed."
-    else
-      redirect_to collection_path, alert: "The project is not able to be failed."
+      if StartFailure.new.call(project: project).success?
+        redirect_to collection_path, alert: "The project have been set to failed."
+      else
+        redirect_to collection_path, alert: "The project is not able to be failed."
+      end
     end
   end
 
@@ -167,7 +164,7 @@ ActiveAdmin.register Project do
 
   controller do
     def create
-      project = Project.new(project_params)
+      project = build_resource
       transaction = CreateProject.new.call(project: project)
       if transaction.success?
         StartUpcoming.new.call(project: project)
@@ -182,14 +179,6 @@ ActiveAdmin.register Project do
       super
       project = Project.find(params[:id])
       StartUpcoming.new.call(project: project)
-    end
-
-    private
-
-    def project_params
-      params.require(:project).permit(:name, :short_desc, :long_desc,
-                                      :amount, :landscape, :thumb,
-                                      :category_id)
     end
   end
 end
