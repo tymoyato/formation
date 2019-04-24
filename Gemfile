@@ -3,12 +3,13 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.5.3'
 
+gem 'aasm'
 # image
 gem 'image_processing', '~> 1.0'
 gem 'shrine', '~> 2.0'
 
 gem 'activeadmin'
-gem 'cancancan'
+gem "pundit"
 gem 'draper'
 gem 'factory_bot_rails'
 gem 'faker'
@@ -57,7 +58,7 @@ gem 'bootsnap', '>= 1.1.0', require: false
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'pry-byebug'
   gem 'letter_opener_web', '~> 1.0'
   gem 'rspec-rails', '~> 3.8'
 end
@@ -70,6 +71,7 @@ group :development do
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'letter_opener_web', '~> 1.0'
+  gem 'pry-rails'
 end
 
 group :test do

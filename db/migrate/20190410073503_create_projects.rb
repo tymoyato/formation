@@ -6,6 +6,7 @@ class CreateProjects < ActiveRecord::Migration[5.2]
       t.text :short_desc
       t.text :long_desc
       t.integer :amount
+      t.integer :percentage
       t.text :landscape_data
       t.text :thumb_data
     end
