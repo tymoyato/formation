@@ -1,0 +1,10 @@
+<% @projects.each do |project| %>
+<tr>
+  <td><h5>name:</h5><%= link_to project.name, project_path(project) %></td>
+  <br>
+  <br>
+  <td><h5>percentage:</h5><%= project.percentage %></td>
+  <br>
+  <br>
+</tr>
+<% end %>
