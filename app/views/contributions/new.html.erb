@@ -1,0 +1,16 @@
+<h1>Création contribution</h1>
+<%= form_for(@contribution, url: contributions_path) do |f| %>
+
+    <%= f.hidden_field :user_id, value: @user.id %>
+    <%= f.hidden_field :project_id, value: @project %>
+    <%= f.label :amount %>
+    <%= f.text_field :amount %>
+
+    <%= f.select :contrepartie_id do %>
+      <% @contreparties.each do |p| %>
+        <%= content_tag(:option, "#{p.name} #{p.amount}", value: p.id) %>
+      <% end %>
+    <% end %>
+
+    <%= f.submit 'Create'%>
+<% end %>

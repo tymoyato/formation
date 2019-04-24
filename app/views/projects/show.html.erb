@@ -1,0 +1,10 @@
+<h1><%= @project.name %><h1>
+<h5><%= @project.short_desc %><h5>
+<h5><%= @project.long_desc %><h5>
+<h5><%= @project.amount %><h5>
+<h5><%= @project.category_id %><h5>
+<h5><%= @project.created_at %><h5>
+<%= image_tag(@project.landscape.url) %>
+<%= image_tag(@project.thumb.url) %>
+
+<%= link_to "add contribution", new_contribution_path(:project_id => @project.id) %>

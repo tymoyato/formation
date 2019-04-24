@@ -11,6 +11,7 @@ Rails.application.routes.draw do
     get 'dashboard', to: 'home#dashboard'
   end
 
+  resources :contributions
   resources :projects
     mount Shrine.upload_endpoint(:cache) => "/upload"
 end
