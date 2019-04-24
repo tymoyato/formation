@@ -23,20 +23,14 @@ ActiveAdmin.register Contrepartie do
 
   controller do
     def create
-      contrepartie = Contrepartie.new(contrepartie_params)
+      contrepartie = build_resource
       transaction = CreateContrepartie.new.call(contrepartie: contrepartie)
       if transaction.success?
         redirect_to admin_contreparty_path(contrepartie.id)
       else
-        @contrepartie = transaction.failure[:resource]
+        resource.contrepartie = transaction.failure[:resource]
         render :new
       end
-    end
-
-    private
-
-    def contrepartie_params
-      params.require(:contrepartie).permit(:project_id, :name, :amount, :stock_state)
     end
   end
 end
